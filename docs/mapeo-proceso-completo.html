@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapeo Completo del Proceso - Personal OS V1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: #0f172a;
+            padding: 20px 40px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #334155;
+        }
+
+        .nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #0f172a;
+            border-radius: 8px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #c4b5fd;
+        }
+
+        .section h4 {
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #ddd6fe;
+        }
+
+        .diagram {
+            background: #020617;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #334155;
+        }
+
+        .code-block {
+            background: #020617;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #334155;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #1e3a8a15 0%, #7e22ce15 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .flow-step {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .flow-step h4 {
+            color: #34d399;
+            margin-bottom: 10px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #a78bfa;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .phase-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #475569;
+        }
+
+        .phase-box h5 {
+            color: #818cf8;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .phase-box ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+        }
+
+        .phase-box ul li {
+            margin: 8px 0;
+        }
+
+        .key-concept {
+            background: linear-gradient(135deg, #3730a315 0%, #1e40af15 100%);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 15px 0;
+        }
+
+        .key-concept strong {
+            color: #60a5fa;
+        }
+
+        .command-box {
+            background: #020617;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #6366f1;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background: #1e293b;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        td {
+            color: #cbd5e1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-info {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        ul li {
+            margin: 8px 0;
+            color: #cbd5e1;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .pipeline-stage {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pipeline-stage:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .stage-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stage-number {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .stage-info h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.3em;
+        }
+
+        .stage-info p {
+            margin: 5px 0 0 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95em;
+        }
+
+        .stage-details {
+            background: #1e293b;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stage-details p {
+            margin: 8px 0;
+            color: #cbd5e1;
+        }
+
+        .stage-arrow {
+            text-align: center;
+            font-size: 2.5em;
+            color: #6366f1;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .nav {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ Mapeo Completo del Proceso</h1>
+            <p>Sistema Personal OS V1 - End-to-End</p>
+            <p style="opacity: 0.8; margin-top: 10px;">63 archivos → 5,000 transacciones → 136 entities → ~4,000 canonical</p>
+        </div>
+
+        <div class="nav">
+            <a href="#overview">Vista General</a>
+            <a href="#stage1">Stage 1: Extraction</a>
+            <a href="#stage2">Stage 2: Observations</a>
+            <a href="#stage25">Stage 2.5: Entities</a>
+            <a href="#stage3">Stage 3: Reconciliation</a>
+            <a href="#stage4">Stage 4: Canonical</a>
+            <a href="#example">Ejemplo End-to-End</a>
+            <a href="#metrics">Métricas</a>
+        </div>
+
+        <div class="content">
+            <!-- VISTA GENERAL -->
+            <div class="section" id="overview">
+                <h2>🌍 Vista General del Sistema</h2>
+
+                <!-- Diagrama BPMN Style -->
+                <div style="margin: 40px 0; background: white; padding: 30px; border-radius: 12px; overflow-x: auto;">
+                    <svg width="1600" height="1300" viewBox="0 0 1600 1300" style="max-width: 100%; height: auto;">
+                        <!-- Definiciones -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#333" />
+                            </marker>
+                        </defs>
+
+                        <!-- Swimlane: INPUT -->
+                        <g>
+                            <rect x="0" y="0" width="1600" height="180" fill="#f9fafb" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="95" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 95)">INPUT</text>
+
+                            <circle cx="180" cy="90" r="28" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="180" y="97" font-family="Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle">Inicio</text>
+
+                            <rect x="300" y="55" width="240" height="70" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="420" y="85" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#333" text-anchor="middle">63 Archivos</text>
+                            <text x="420" y="107" font-family="Arial, sans-serif" font-size="13" fill="#666" text-anchor="middle">PDFs + CSVs</text>
+
+                            <!-- Arrow -->
+                            <line x1="208" y1="90" x2="300" y2="90" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Swimlane: S1 EXTRACTION -->
+                        <g>
+                            <rect x="0" y="180" width="1600" height="200" fill="white" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 295)">S1: EXTRACTION</text>
+
+                            <rect x="300" y="230" width="240" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="420" y="260" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#333" text-anchor="middle">Extracción</text>
+                            <text x="420" y="282" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">unified_parser.py</text>
+                            <text x="420" y="300" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">~5 segundos</text>
+
+                            <rect x="620" y="245" width="220" height="60" rx="5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+                            <text x="730" y="270" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">combined_raw_ledger.json</text>
+                            <text x="730" y="290" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">10MB | 5,000 txs</text>
+
+                            <!-- Arrows -->
+                            <line x1="420" y1="125" x2="420" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="540" y1="270" x2="620" y2="270" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Swimlane: S2 OBSERVATIONS -->
+                        <g>
+                            <rect x="0" y="380" width="1600" height="200" fill="#f9fafb" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="495" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 495)">S2: OBSERVATIONS</text>
+
+                            <rect x="300" y="430" width="240" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="420" y="460" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#333" text-anchor="middle">Observaciones</text>
+                            <text x="420" y="482" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">generate_observations.py</text>
+                            <text x="420" y="500" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">~1 segundo</text>
+
+                            <rect x="620" y="445" width="220" height="60" rx="5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+                            <text x="730" y="470" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">raw_observations.json</text>
+                            <text x="730" y="490" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">5.3MB | 5,000 obs</text>
+
+                            <!-- Arrows -->
+                            <line x1="730" y1="305" x2="730" y2="380" stroke="#333" stroke-width="2"/>
+                            <line x1="730" y1="380" x2="420" y2="380" stroke="#333" stroke-width="2"/>
+                            <line x1="420" y1="380" x2="420" y2="430" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="540" y1="470" x2="620" y2="470" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Swimlane: S2.5 ENTITIES -->
+                        <g>
+                            <rect x="0" y="580" width="1600" height="220" fill="white" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="705" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 705)">S2.5: ENTITIES</text>
+
+                            <rect x="180" y="625" width="200" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="280" y="650" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">Phase 1: Batch</text>
+                            <text x="280" y="672" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">136 entities</text>
+                            <text x="280" y="690" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">3.1s</text>
+
+                            <rect x="440" y="625" width="200" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="540" y="650" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">Phase 2: Incr.</text>
+                            <text x="540" y="672" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">107K obs/s</text>
+                            <text x="540" y="690" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Cache: 80.5%</text>
+
+                            <rect x="700" y="640" width="240" height="60" rx="5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+                            <text x="820" y="665" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">enriched_observations</text>
+                            <text x="820" y="685" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">6.3MB | entity_ids</text>
+
+                            <ellipse cx="1020" cy="665" rx="70" ry="38" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="1020" y="662" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">Registry</text>
+                            <text x="1020" y="680" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">limpio?</text>
+
+                            <!-- Arrows -->
+                            <line x1="730" y1="505" x2="730" y2="580" stroke="#333" stroke-width="2"/>
+                            <line x1="730" y1="580" x2="280" y2="580" stroke="#333" stroke-width="2"/>
+                            <line x1="280" y1="580" x2="280" y2="625" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="380" y1="665" x2="440" y2="665" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="640" y1="665" x2="700" y2="665" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="940" y1="665" x2="950" y2="665" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Swimlane: S3 RECONCILIATION -->
+                        <g>
+                            <rect x="0" y="800" width="1600" height="210" fill="#f9fafb" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="920" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 920)">S3: RECONCILIATION</text>
+
+                            <rect x="300" y="845" width="220" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="410" y="875" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#333" text-anchor="middle">Overlap Detection</text>
+                            <text x="410" y="895" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">reconcile_field_level.py</text>
+                            <text x="410" y="913" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">~2 segundos</text>
+
+                            <rect x="580" y="855" width="200" height="60" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="680" y="880" font-family="Arial, sans-serif" font-size="14" fill="#333" text-anchor="middle">Field Resolution</text>
+                            <text x="680" y="900" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">6 strategies</text>
+
+                            <rect x="840" y="855" width="220" height="60" rx="5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+                            <text x="950" y="880" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">canonical_ledger_v5.json</text>
+                            <text x="950" y="900" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">13MB | ~4,000 txs</text>
+
+                            <!-- Arrows -->
+                            <line x1="820" y1="700" x2="820" y2="800" stroke="#333" stroke-width="2"/>
+                            <line x1="820" y1="800" x2="410" y2="800" stroke="#333" stroke-width="2"/>
+                            <line x1="410" y1="800" x2="410" y2="845" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="520" y1="885" x2="580" y2="885" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="780" y1="885" x2="840" y2="885" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Swimlane: S4 CANONICAL -->
+                        <g>
+                            <rect x="0" y="1010" width="1600" height="220" fill="white" stroke="#d1d5db" stroke-width="2"/>
+                            <text x="40" y="1135" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151" transform="rotate(-90 40 1135)">S4: CANONICAL</text>
+
+                            <rect x="300" y="1060" width="240" height="80" rx="5" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="420" y="1090" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#333" text-anchor="middle">Entity Enrichment</text>
+                            <text x="420" y="1110" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">run_complete_pipeline.py</text>
+                            <text x="420" y="1128" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">~1 segundo</text>
+
+                            <rect x="620" y="1070" width="260" height="60" rx="5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+                            <text x="750" y="1095" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">canonical_ledger_v6_enriched.json</text>
+                            <text x="750" y="1115" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">14MB | entity metadata</text>
+
+                            <circle cx="950" cy="1100" r="28" fill="white" stroke="#333" stroke-width="2"/>
+                            <text x="950" y="1108" font-family="Arial, sans-serif" font-size="15" fill="#333" text-anchor="middle" font-weight="bold">Fin</text>
+
+                            <!-- Arrows -->
+                            <line x1="950" y1="915" x2="950" y2="1010" stroke="#333" stroke-width="2"/>
+                            <line x1="950" y1="1010" x2="420" y2="1010" stroke="#333" stroke-width="2"/>
+                            <line x1="420" y1="1010" x2="420" y2="1060" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="540" y1="1100" x2="620" y2="1100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="880" y1="1100" x2="922" y2="1100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        </g>
+
+                        <!-- Info text (Leyenda) -->
+                        <text x="1300" y="50" font-family="Arial, sans-serif" font-size="14" fill="#666" font-weight="bold">
+                            <tspan x="1300" dy="0">Leyenda:</tspan>
+                        </text>
+                        <text x="1300" y="80" font-family="Arial, sans-serif" font-size="13" fill="#666">
+                            <tspan x="1300" dy="0">■ Proceso</tspan>
+                            <tspan x="1300" dy="30">▭ Output/Data</tspan>
+                            <tspan x="1300" dy="30">◇ Decisión</tspan>
+                            <tspan x="1300" dy="30">○ Inicio/Fin</tspan>
+                        </text>
+                    </svg>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-label">Archivos Procesados</span>
+                        <span class="metric-value">63</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Transacciones</span>
+                        <span class="metric-value">5,000</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Entities</span>
+                        <span class="metric-value">136</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Canonical Txs</span>
+                        <span class="metric-value">~4,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 1: EXTRACTION -->
+            <div class="section" id="stage1">
+                <h2>🔍 STAGE 1: Extraction</h2>
+                <span class="badge badge-success">Producción</span>
+
+                <h3>¿Qué hace?</h3>
+                <p>Extrae transacciones de PDFs y CSVs de diferentes bancos, convirtiéndolas a un formato unificado.</p>
+
+                <h3>¿Por qué?</h3>
+                <p>Cada banco tiene su propio formato de statement. Necesitamos unificar todo en una estructura común.</p>
+
+                <h3>Script Principal</h3>
+                <div class="command-box">unified_parser.py (82K, 2000+ líneas)</div>
+
+                <h3>Ejemplo de Transformación</h3>
+
+                <div class="example-box">
+                    <h4>ANTES (PDF de BofA):</h4>
+                    <div class="code-block">
+Date: 12/27/2024
+Amazon Mx Marketplace                     -$30.70
+                    </div>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="example-box">
+                    <h4>DESPUÉS (JSON):</h4>
+                    <div class="code-block">
+{
+  "date": "2024-12-27",
+  "merchant": "Amazon Mx Marketplace",
+  "amount": -30.70,
+  "source": "bofa_credit",
+  "statement_period": "2024-12",
+  "account_last_4": "1234",
+  "transaction_hash": "abc123...",
+  "currency": "USD"
+}
+                    </div>
+                </div>
+
+                <h3>Métricas</h3>
+                <table>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Archivos procesados</td>
+                        <td>63</td>
+                    </tr>
+                    <tr>
+                        <td>Transacciones extraídas</td>
+                        <td>5,000</td>
+                    </tr>
+                    <tr>
+                        <td>Tiempo de ejecución</td>
+                        <td>~5 segundos</td>
+                    </tr>
+                    <tr>
+                        <td>Output size</td>
+                        <td>10MB</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- STAGE 2: OBSERVATION LAYER -->
+            <div class="section" id="stage2">
+                <h2>📝 STAGE 2: Observation Layer</h2>
+                <span class="badge badge-success">Producción</span>
+
+                <h3>¿Qué hace?</h3>
+                <p>Convierte cada transacción en una "observation" - una representación neutral de lo que vio cada banco.</p>
+
+                <h3>¿Por qué?</h3>
+                <p>Una transaction puede aparecer en múltiples statements (ej: transferencia BofA → Wise). Cada fuente es una "observation" independiente. <strong>No afirmamos relaciones aún.</strong></p>
+
+                <div class="key-concept">
+                    <strong>Concepto Clave: Observation vs Transaction</strong><br><br>
+                    <strong>Observation:</strong> Lo que VIO cada banco/statement. Una fuente = una observation. Neutral, no afirma relaciones.<br><br>
+                    <strong>Example:</strong> Transferencia BofA → Wise:
+                    <ul>
+                        <li>BofA statement VE: "Wire to Wise - $1,000" → Observation 1</li>
+                        <li>Wise statement VE: "Received $1,000" → Observation 2</li>
+                    </ul>
+                    Son 2 observations de la MISMA transacción económica.
+                </div>
+
+                <h3>Ejemplo de Transformación</h3>
+
+                <div class="example-box">
+                    <h4>ANTES (raw ledger):</h4>
+                    <div class="code-block">
+{
+  "date": "2024-12-27",
+  "merchant": "Amazon Mx Marketplace",
+  "amount": -30.70,
+  "source": "bofa_credit"
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="example-box">
+                    <h4>DESPUÉS (observation):</h4>
+                    <div class="code-block">
+{
+  "observation_id": "obs_bofa_credit_20241227_001",
+  "source": "bofa_credit",
+  "statement_date": "2024-12-31",
+  "confidence_score": 0.95,
+
+  "parsed_statement": {
+    "date": "2024-12-27",
+    "merchant": "Amazon Mx Marketplace",
+    "amount": -30.70,
+    "category": "Shopping",
+    "currency": "USD"
+  },
+
+  "_entity_resolution": {}  // Se llenará en Stage 2.5
+}
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 2.5: ENTITY RESOLUTION -->
+            <div class="section" id="stage25">
+                <h2>🎯 STAGE 2.5: Entity Resolution (Hybrid)</h2>
+                <span class="badge badge-success">Producción</span>
+
+                <h3>¿Qué hace?</h3>
+                <p>Resuelve las identidades de merchants, payees, etc. Consolida variaciones del mismo merchant.</p>
+
+                <h3>¿Por qué?</h3>
+                <p>Los bancos escriben merchants de forma diferente:</p>
+                <ul>
+                    <li>"UBER * TRIP"</li>
+                    <li>"Uber Technologies"</li>
+                    <li>"UBER EATS"</li>
+                    <li>"Uber"</li>
+                </ul>
+                <p><strong>Pregunta:</strong> ¿Son el mismo merchant o diferentes?</p>
+
+                <h3>Arquitectura Híbrida (3 Fases)</h3>
+
+                <div class="phase-box">
+                    <h5>Phase 1: Batch Pre-Clustering</h5>
+                    <p><strong>Script:</strong> hybrid_entity_resolution.py batch</p>
+                    <p><strong>Ejecuta:</strong> UNA VEZ (con todas las transacciones)</p>
+                    <ul>
+                        <li>Extrae TODOS los merchants únicos</li>
+                        <li>Normaliza (uppercase, remove special chars)</li>
+                        <li>Fuzzy matching (similarity > 0.85)</li>
+                        <li>Agrupa variaciones del mismo merchant</li>
+                        <li>Selecciona canonical_name</li>
+                        <li>Tracking de aliases</li>
+                    </ul>
+                    <p><strong>Output:</strong> 136 entities consolidadas</p>
+                    <p><strong>Tiempo:</strong> 3.1 segundos</p>
+                </div>
+
+                <div class="phase-box">
+                    <h5>Phase 2: Incremental Resolution</h5>
+                    <p><strong>Script:</strong> entity_identity_pipeline.py</p>
+                    <p><strong>Ejecuta:</strong> POR CADA OBSERVATION</p>
+                    <p><strong>6 Componentes:</strong></p>
+                    <ul>
+                        <li><strong>1. MerchantNormalizer:</strong> "UBER *" → "UBER"</li>
+                        <li><strong>2. EntityCache (LRU):</strong> 80.5% hit rate</li>
+                        <li><strong>3. EntityRegistry:</strong> O(1) exact lookup</li>
+                        <li><strong>4. SimilarityScorer:</strong> Fuzzy matching (threshold 0.85)</li>
+                        <li><strong>5. EntityDecider:</strong> Match o create new</li>
+                        <li><strong>6. Cache Update:</strong> Guarda resultado</li>
+                    </ul>
+                    <p><strong>Performance:</strong> 107,218 observations/segundo</p>
+                    <p><strong>Cache hit:</strong> 80.5%</p>
+                </div>
+
+                <div class="phase-box">
+                    <h5>Phase 3: Periodic Merge</h5>
+                    <p><strong>Script:</strong> hybrid_entity_resolution.py merge</p>
+                    <p><strong>Ejecuta:</strong> PERIÓDICAMENTE</p>
+                    <ul>
+                        <li>Detecta duplicados (similarity > 0.90)</li>
+                        <li>Merge automático</li>
+                        <li>Actualiza aliases</li>
+                    </ul>
+                    <p><strong>Status actual:</strong> 0 duplicados (registry limpio)</p>
+                </div>
+
+                <h3>Ejemplo: Uber Variants</h3>
+
+                <div class="example-box">
+                    <h4>Input (diferentes observations):</h4>
+                    <div class="code-block">
+Obs 1: merchant = "UBER * TRIP"
+Obs 2: merchant = "Uber Technologies Inc"
+Obs 3: merchant = "UBER"
+Obs 4: merchant = "UBER EATS"
+                    </div>
+                </div>
+
+                <div class="arrow">↓ Phase 1: Batch Clustering</div>
+
+                <div class="example-box">
+                    <h4>entities_batch_clustered.json:</h4>
+                    <div class="code-block">
+{
+  "entity_uber": {
+    "canonical_name": "Uber",
+    "aliases": ["UBER *", "UBER TRIP", "Uber Technologies"],
+    "transaction_count": 161,
+    "total_amount_usd": 2774.94
+  },
+  "entity_uber_eats": {
+    "canonical_name": "Uber Eats",
+    "aliases": ["UBER EATS", "UBER * EATS"],
+    "transaction_count": 45,
+    "total_amount_usd": 892.33
+  }
+}
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <strong>Stateless = Cacheable</strong><br><br>
+                    Entity resolution es una <strong>pure function</strong>: mismo input → mismo output.<br><br>
+                    <code>resolve("UBER * TRIP") → "entity_uber"</code><br>
+                    <code>resolve("UBER * TRIP") → "entity_uber"</code> (siempre el mismo)<br><br>
+                    <strong>Beneficio:</strong><br>
+                    Primera vez: 0.002s (lookup)<br>
+                    Segunda vez: 0.00001s (cache hit)<br>
+                    <strong>196x más rápido!</strong>
+                </div>
+            </div>
+
+            <!-- STAGE 3: RECONCILIATION -->
+            <div class="section" id="stage3">
+                <h2>🔗 STAGE 3: Reconciliation</h2>
+                <span class="badge badge-success">Producción</span>
+
+                <h3>¿Qué hace?</h3>
+                <p>Detecta relationships entre observations y crea canonical transactions.</p>
+
+                <h3>¿Por qué?</h3>
+                <p>Algunas observations representan la MISMA transacción económica pero desde diferentes fuentes.</p>
+
+                <h3>Proceso (4 Steps)</h3>
+
+                <div class="flow-step">
+                    <h4>Step 1: Overlap Detection</h4>
+                    <ul>
+                        <li><strong>Time Window:</strong> ±7 días</li>
+                        <li><strong>Amount Match:</strong> tolerance 2%</li>
+                        <li><strong>Entity Match:</strong> mismo entity_id</li>
+                        <li><strong>Source Exclusion:</strong> diferentes sources</li>
+                    </ul>
+                    <p>Si MATCH → Potential overlap</p>
+                </div>
+
+                <div class="flow-step">
+                    <h4>Step 2: Overlap Clustering</h4>
+                    <p>Agrupa observations que representan misma transacción</p>
+                    <div class="code-block">
+Ejemplo:
+  Obs A: BofA → "Transfer to Wise $1,000"
+  Obs B: Wise → "Received $1,000"
+
+→ Overlap Group 1 = [Obs A, Obs B]
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h4>Step 3: Field-Level Resolution</h4>
+                    <p>Para cada campo, aplica una STRATEGY:</p>
+                    <ul>
+                        <li><strong>first_source:</strong> Primera observation</li>
+                        <li><strong>highest_confidence:</strong> Mayor confidence_score</li>
+                        <li><strong>most_complete:</strong> Valor más detallado</li>
+                        <li><strong>earliest_date:</strong> Para fechas</li>
+                        <li><strong>sum:</strong> Para internal transfers</li>
+                        <li><strong>weighted_average:</strong> Promedio ponderado</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h4>Step 4: Create Canonical Transaction</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_001",
+  "date": "2024-12-27",
+  "merchant": {...},
+  "amount": -30.70,
+  "metadata": {
+    "source_observations": ["obs_001", "obs_002"],
+    "field_provenance": {...}
+  }
+}
+                    </div>
+                </div>
+
+                <h3>Ejemplo: Internal Transfer</h3>
+
+                <div class="example-box">
+                    <h4>Input (BofA → Wise):</h4>
+                    <div class="code-block">
+Observation 1 (BofA):
+  date: "2024-01-15"
+  description: "Wire Transfer to Wise"
+  amount: -1000.00
+
+Observation 2 (Wise):
+  date: "2024-01-16"
+  description: "Received from Bank of America"
+  amount: 1000.00
+                    </div>
+                </div>
+
+                <div class="arrow">↓ Overlap Detection</div>
+
+                <div class="example-box">
+                    <h4>Detection Result:</h4>
+                    <div class="code-block">
+✓ Time window: 1 day (< 7 days)
+✓ Amount match: $1,000 exact
+✓ Different sources: bofa vs wise
+✓ Opposite signs: -1000 vs +1000
+
+→ OVERLAP DETECTED!
+                    </div>
+                </div>
+
+                <div class="arrow">↓ Field Resolution</div>
+
+                <div class="example-box">
+                    <h4>Canonical Transaction:</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_transfer_001",
+  "date": "2024-01-15",  // earliest_date
+  "description": "Wire Transfer to Wise",  // most_complete
+  "amount": 0.00,  // sum (internal, no real expense)
+  "type": "internal_transfer",
+  "metadata": {
+    "relationship_type": "INTERNAL_TRANSFER",
+    "flow": "bofa_checking → wise"
+  }
+}
+                    </div>
+                </div>
+
+                <div class="key-concept">
+                    <strong>Stateful = Context-Dependent</strong><br><br>
+                    Para detectar overlaps, necesito VER TODAS las observations.<br><br>
+                    Observation A solo → No puedo saber si es overlap<br>
+                    Observation A + B → Puedo comparar y detectar<br><br>
+                    <strong>Necesito CONTEXTO del corpus completo.</strong>
+                </div>
+
+                <h3>Métricas</h3>
+                <table>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Input observations</td>
+                        <td>5,000</td>
+                    </tr>
+                    <tr>
+                        <td>Output canonical</td>
+                        <td>~4,000</td>
+                    </tr>
+                    <tr>
+                        <td>Consolidation rate</td>
+                        <td>~20%</td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td>~2 segundos</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- STAGE 4: CANONICAL LEDGER -->
+            <div class="section" id="stage4">
+                <h2>📦 STAGE 4: Canonical Ledger (Entity-Enriched)</h2>
+                <span class="badge badge-success">Producción</span>
+
+                <h3>¿Qué hace?</h3>
+                <p>Agrega entity resolution metadata al canonical ledger.</p>
+
+                <h3>¿Por qué?</h3>
+                <p>El canonical ledger (Stage 3) tiene entity_ids, pero queremos agregar la metadata completa de resolución.</p>
+
+                <h3>Ejemplo de Enrichment</h3>
+
+                <div class="example-box">
+                    <h4>Input (canonical v5):</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_001",
+  "date": "2024-12-27",
+  "merchant": "Amazon Mx Marketplace",
+  "amount": -30.70,
+  "metadata": {
+    "source_observations": ["obs_bofa_001"]
+  }
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓ Entity Enrichment</div>
+
+                <div class="example-box">
+                    <h4>Output FINAL (canonical v6):</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_001",
+  "date": "2024-12-27",
+  "merchant": "Amazon Mx Marketplace",
+  "amount": -30.70,
+
+  "_entity_resolution": {
+    "merchant": {
+      "entity_id": "entity_amazon_mx_marketplace",
+      "canonical_name": "Amazon Mx Marketplace",
+      "original_value": "Amazon Mx Marketplace",
+      "method": "created",
+      "confidence": 1.0,
+      "transaction_count": 46,
+      "total_amount_usd": 2488.01
+    }
+  },
+
+  "metadata": {
+    "source_observations": ["obs_bofa_001"]
+  }
+}
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJEMPLO END-TO-END -->
+            <div class="section" id="example">
+                <h2>🎬 Flujo de Ejemplo End-to-End</h2>
+                <span class="badge badge-info">Compra en Uber - Del PDF al Canonical</span>
+
+                <h3>Escenario: Compra en Uber ($18.50)</h3>
+                <p>Vamos a seguir una transacción desde el PDF hasta el canonical ledger enriquecido.</p>
+
+                <div class="flow-step">
+                    <h4>📄 Inicio: PDF de BofA Credit Card</h4>
+                    <div class="code-block">
+Statement Date: December 31, 2024
+
+Transactions:
+Date        Description              Amount
+12/15       UBER * TRIP              -$18.50
+                    </div>
+                </div>
+
+                <div class="arrow">↓ STAGE 1: Extraction</div>
+
+                <div class="flow-step">
+                    <h4>⚙️ Extraction Result</h4>
+                    <div class="code-block">
+{
+  "date": "2024-12-15",
+  "merchant": "UBER * TRIP",
+  "amount": -18.50,
+  "source": "bofa_credit",
+  "statement_period": "2024-12",
+  "transaction_hash": "bofa_20241215_uber_1850"
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓ STAGE 2: Observation Layer</div>
+
+                <div class="flow-step">
+                    <h4>📝 Observation Created</h4>
+                    <div class="code-block">
+{
+  "observation_id": "obs_bofa_credit_20241215_001",
+  "source": "bofa_credit",
+  "confidence_score": 0.95,
+  "parsed_statement": {
+    "date": "2024-12-15",
+    "merchant": "UBER * TRIP",
+    "amount": -18.50
+  },
+  "_entity_resolution": {}
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓ STAGE 2.5: Entity Resolution</div>
+
+                <div class="flow-step">
+                    <h4>🎯 Entity Resolution Process</h4>
+                    <div class="code-block">
+Input: "UBER * TRIP"
+
+Step 1: Normalize
+  "UBER * TRIP" → "UBER TRIP"
+
+Step 2: Cache check
+  Cache miss (primera vez)
+
+Step 3: Registry lookup
+  Found in entity_uber.aliases: "UBER * TRIP"
+  Match: EXACT
+
+Step 4: Return result
+  entity_id: "entity_uber"
+  confidence: 1.0
+                    </div>
+
+                    <h4>Entity Resolved Observation:</h4>
+                    <div class="code-block">
+{
+  "observation_id": "obs_bofa_credit_20241215_001",
+  "parsed_statement": {
+    "merchant": "UBER * TRIP",
+    "amount": -18.50
+  },
+  "_entity_resolution": {
+    "merchant": {
+      "entity_id": "entity_uber",
+      "method": "exact",
+      "confidence": 1.0
+    }
+  }
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓ STAGE 3: Reconciliation</div>
+
+                <div class="flow-step">
+                    <h4>🔗 Reconciliation Check</h4>
+                    <div class="code-block">
+Overlap Detection:
+  ¿Otra observation con date ±7 días?
+  ¿Amount ~$18.50?
+  ¿Same entity_id (entity_uber)?
+  ¿Different source?
+
+→ NO MATCH (solo en BofA, no duplicada)
+
+Decision: Create canonical transaction
+                    </div>
+
+                    <h4>Canonical Transaction:</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_uber_20241215_001",
+  "date": "2024-12-15",
+  "merchant": "UBER * TRIP",
+  "amount": -18.50,
+  "metadata": {
+    "source_observations": ["obs_bofa_credit_20241215_001"]
+  }
+}
+                    </div>
+                </div>
+
+                <div class="arrow">↓ STAGE 4: Entity Enrichment</div>
+
+                <div class="flow-step">
+                    <h4>📦 Final Canonical (Entity-Enriched)</h4>
+                    <div class="code-block">
+{
+  "canonical_id": "tx_uber_20241215_001",
+  "date": "2024-12-15",
+  "merchant": "UBER * TRIP",
+  "amount": -18.50,
+
+  "_entity_resolution": {
+    "merchant": {
+      "entity_id": "entity_uber",
+      "canonical_name": "Uber",
+      "normalized_name": "UBER",
+      "original_value": "UBER * TRIP",
+      "method": "exact",
+      "confidence": 1.0,
+      "transaction_count": 161,
+      "total_amount_usd": 2774.94
+    }
+  },
+
+  "metadata": {
+    "source_observations": ["obs_bofa_credit_20241215_001"]
+  }
+}
+                    </div>
+                </div>
+
+                <h3>🎉 Resultado Final</h3>
+
+                <div class="key-concept">
+                    <strong>Viaje Completo:</strong><br>
+                    PDF → Raw Transaction → Observation → Entity Resolved → Canonical → Entity Enriched<br><br>
+
+                    <strong>Queries que ahora puedes hacer:</strong><br><br>
+
+                    <code>// Total gastado en Uber</code><br>
+                    <code>SELECT SUM(amount) WHERE entity_id = 'entity_uber'</code><br>
+                    <code>→ Result: $2,774.94</code><br><br>
+
+                    <code>// Transacciones de Uber en Diciembre</code><br>
+                    <code>SELECT * WHERE entity_id = 'entity_uber' AND month = 12</code><br><br>
+
+                    <code>// Comparar Uber vs Uber Eats</code><br>
+                    <code>SELECT entity_id, SUM(amount), COUNT(*)</code><br>
+                    <code>WHERE entity_id IN ('entity_uber', 'entity_uber_eats')</code>
+                </div>
+            </div>
+
+            <!-- MÉTRICAS -->
+            <div class="section" id="metrics">
+                <h2>📊 Métricas del Sistema Completo</h2>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-label">Archivos Input</span>
+                        <span class="metric-value">63</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Raw Transactions</span>
+                        <span class="metric-value">5,000</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Entities</span>
+                        <span class="metric-value">136</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Canonical Txs</span>
+                        <span class="metric-value">~4,000</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Coverage</span>
+                        <span class="metric-value">100%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Time End-to-End</span>
+                        <span class="metric-value">~10s</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Entity Resolution</span>
+                        <span class="metric-value">107K obs/s</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Cache Hit Rate</span>
+                        <span class="metric-value">80.5%</span>
+                    </div>
+                </div>
+
+                <h3>Performance por Stage</h3>
+                <table>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Output</th>
+                        <th>Tiempo</th>
+                        <th>Size</th>
+                    </tr>
+                    <tr>
+                        <td>1. Extraction</td>
+                        <td>5,000 raw txs</td>
+                        <td>~5s</td>
+                        <td>10MB</td>
+                    </tr>
+                    <tr>
+                        <td>2. Observations</td>
+                        <td>5,000 obs</td>
+                        <td>~1s</td>
+                        <td>5.3MB</td>
+                    </tr>
+                    <tr>
+                        <td>2.5a. Batch Clustering</td>
+                        <td>136 entities</td>
+                        <td>3.1s</td>
+                        <td>69K</td>
+                    </tr>
+                    <tr>
+                        <td>2.5b. Incremental</td>
+                        <td>5,000 enriched obs</td>
+                        <td>0.047s</td>
+                        <td>6.3MB</td>
+                    </tr>
+                    <tr>
+                        <td>3. Reconciliation</td>
+                        <td>~4,000 canonical</td>
+                        <td>~2s</td>
+                        <td>13MB</td>
+                    </tr>
+                    <tr>
+                        <td>4. Enrichment</td>
+                        <td>~4,000 enriched</td>
+                        <td>~1s</td>
+                        <td>14MB</td>
+                    </tr>
+                </table>
+
+                <h3>Conceptos Clave</h3>
+
+                <div class="key-concept">
+                    <strong>1. Observation vs Transaction</strong><br>
+                    Observation = Lo que VIO un banco<br>
+                    Transaction = Hecho económico real (puede tener múltiples observations)
+                </div>
+
+                <div class="key-concept">
+                    <strong>2. Stateless vs Stateful</strong><br>
+                    Stateless (Entity Resolution) = Pure function, cacheable<br>
+                    Stateful (Reconciliation) = Context-dependent, necesita corpus completo
+                </div>
+
+                <div class="key-concept">
+                    <strong>3. Entity Resolution</strong><br>
+                    Problema: "UBER *" = "Uber" = "UBER TRIP"?<br>
+                    Solución: Consolidación en entity_uber con aliases
+                </div>
+
+                <div class="key-concept">
+                    <strong>4. Reconciliation</strong><br>
+                    Problema: ¿2 observations = misma transacción?<br>
+                    Solución: Overlap detection (time + amount + entity)
+                </div>
+
+                <div class="key-concept">
+                    <strong>5. Provenance</strong><br>
+                    Metadata tracking: De dónde vino cada field, qué strategy usó, confidence level
+                </div>
+
+                <h3>Comandos para Ejecutar</h3>
+
+                <div class="command-box">
+# 1. Extraction
+python3 scripts/unified_parser.py
+
+# 2. Observation Layer
+python3 scripts/generate_observations.py
+
+# 3a. Batch Clustering (once)
+python3 scripts/hybrid_entity_resolution.py batch
+
+# 3b. Incremental Resolution
+python3 scripts/process_all_observations_hybrid.py
+
+# 4. Complete Pipeline (Reconciliation + Enrichment)
+python3 scripts/run_complete_pipeline.py
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #0f172a; padding: 40px; text-align: center; border-top: 1px solid #334155;">
+            <p style="color: #94a3b8; margin-bottom: 10px;">
+                <strong>Estado:</strong> ✅ Sistema completo funcionando en producción
+            </p>
+            <p style="color: #94a3b8; margin-bottom: 10px;">
+                <strong>Coverage:</strong> 5,000/5,000 transacciones (100%)
+            </p>
+            <p style="color: #94a3b8;">
+                <strong>Performance:</strong> End-to-end en ~10 segundos
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling para navegación
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
